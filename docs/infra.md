@@ -11,4 +11,4 @@
 |---|---|---|
 
 ## Desktop updates
-- Update source: https://github.com/alexcanario/agile-release-scratch-desktop
+- Update source: https://example.com/feed
