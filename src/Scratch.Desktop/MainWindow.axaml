@@ -1,0 +1,3 @@
+<Window xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Class="Scratch.Desktop.MainWindow" Title="Scratch" Width="320" Height="160">
+  <TextBlock Text="Scratch" HorizontalAlignment="Center" VerticalAlignment="Center" />
+</Window>

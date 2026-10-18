@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <RuntimeIdentifiers>win-x64;linux-x64</RuntimeIdentifiers>
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="12.1.4" />
+    <PackageReference Include="Avalonia.Desktop" Version="12.1.4" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="12.1.4" />
+    <PackageReference Include="Velopack" Version="1.2.161" />
+  </ItemGroup>
+</Project>

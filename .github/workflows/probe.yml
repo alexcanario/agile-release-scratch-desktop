@@ -1,0 +1,38 @@
+name: Probe
+on:
+  workflow_dispatch:
+jobs:
+  crlf-default:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: status
+        shell: bash
+        run: |
+          git config --get core.autocrlf || echo "autocrlf unset"
+          git status --porcelain --untracked-files=all | head
+          echo "dirty lines: $(git status --porcelain --untracked-files=all | wc -l)"
+  pack:
+    runs-on: windows-latest
+    steps:
+      - name: autocrlf off
+        run: git config --global core.autocrlf false
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-dotnet@v6
+        with:
+          global-json-file: global.json
+      - name: status
+        shell: bash
+        run: |
+          echo "dirty lines: $(git status --porcelain --untracked-files=all | wc -l)"
+      - name: publish and pack
+        shell: bash
+        run: |
+          dotnet tool restore
+          dotnet publish src/Scratch.Desktop -c Release -r linux-x64 --self-contained -o out/linux
+          dotnet vpk '[linux]' pack --packId Scratch --packVersion 0.1.0 --packDir out/linux --mainExe Scratch.Desktop --runtime linux-x64 --icon src/Scratch.Desktop/Assets/app-icon.png -o out/vlinux --yes
+          dotnet publish src/Scratch.Desktop -c Release -r win-x64 --self-contained -o out/win
+          dotnet vpk pack --packId Scratch --packVersion 0.1.0 --packDir out/win --mainExe Scratch.Desktop.exe --runtime win-x64 -o out/vwin --yes
+          ls -la out/vlinux out/vwin
